@@ -1,14 +1,15 @@
 const express = require('express');
 const app = express();
 
-// ESTA LINHA ABAIXO É A QUE ESTÁ FALTANDO NO SEU PRINT:
+// IMPORTANTE: Esta linha liga o index.js ao seu arquivo de rotas
 const tarefaRoutes = require('./api/routes/tarefa'); 
 
 app.use(express.json());
 
-// Rota para testar se a Vercel está lendo o arquivo
+// Rota de teste para confirmar que o servidor subiu
 app.get('/', (req, res) => res.send('Servidor Online na Vercel!'));
 
+// Ativa as rotas de tarefas no caminho /tarefas
 app.use('/tarefas', tarefaRoutes);
 
 module.exports = app;
