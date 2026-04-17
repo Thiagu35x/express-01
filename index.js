@@ -1,23 +1,34 @@
 const express = require('express');
-const sequelize = require('./config/database');
-const tarefaRoutes = require('./api/routes/tarefa');
 require('dotenv').config();
+
+// Tenta carregar o banco e as rotas
+let sequelize;
+let tarefaRoutes;
+try {
+    sequelize = require('./config/database');
+    tarefaRoutes = require('./api/routes/tarefa');
+} catch (e) {
+    console.error("Erro ao carregar arquivos internos:", e.message);
+}
 
 const app = express();
 app.use(express.json());
 
-// Rota raiz para teste
+// Rota de teste (Abra essa rota primeiro no navegador)
 app.get('/', (req, res) => {
-    res.status(200).send('API de Tarefas rodando com sucesso!');
+    res.status(200).send('API está funcionando! Tente acessar /tarefas');
 });
 
-// Rotas da API
-app.use('/tarefas', tarefaRoutes);
+// Registrar rotas apenas se carregarem
+if (tarefaRoutes) {
+    app.use('/tarefas', tarefaRoutes);
+}
 
-// Conexão com o Banco
-sequelize.sync()
-    .then(() => console.log('Banco de dados sincronizado'))
-    .catch(err => console.error('Erro ao conectar ao banco:', err));
+// Conexão com o Banco (Não trava o servidor se falhar)
+if (sequelize) {
+    sequelize.sync()
+        .then(() => console.log('Banco sincronizado'))
+        .catch(err => console.error('Erro na conexão do banco:', err.message));
+}
 
-// Exportação obrigatória para a Vercel
 module.exports = app;
