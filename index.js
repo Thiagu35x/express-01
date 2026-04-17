@@ -6,16 +6,18 @@ require('dotenv').config();
 const app = express();
 app.use(express.json());
 
-// Rota de teste para saber se está vivo
-app.get('/', (req, res) => res.send('API de Tarefas Online!'));
+// Rota raiz para teste
+app.get('/', (req, res) => {
+    res.status(200).send('API de Tarefas rodando com sucesso!');
+});
 
-// Rotas principais
+// Rotas da API
 app.use('/tarefas', tarefaRoutes);
 
-// Sincronizar banco
+// Conexão com o Banco
 sequelize.sync()
-    .then(() => console.log('Banco conectado'))
-    .catch(err => console.log('Erro no banco: ' + err));
+    .then(() => console.log('Banco de dados sincronizado'))
+    .catch(err => console.error('Erro ao conectar ao banco:', err));
 
-// ESSENCIAL PARA VERCEL: Exportar o app
+// Exportação obrigatória para a Vercel
 module.exports = app;
