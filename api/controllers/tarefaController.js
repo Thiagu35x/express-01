@@ -4,9 +4,9 @@ const Tarefa = require('../models/tarefa');
 exports.getAll = async (req, res) => {
   try {
     const tarefas = await Tarefa.findAll();
-    res.status(200).json(tarefas);
+    return res.status(200).json(tarefas);
   } catch (error) {
-    res.status(500).json({ 
+    return res.status(500).json({ 
       message: 'Erro ao buscar tarefas', 
       error: error.message 
     });
@@ -16,10 +16,11 @@ exports.getAll = async (req, res) => {
 // Criar uma nova tarefa
 exports.create = async (req, res) => {
   try {
+    // Note o nome da variável: novaTarefa (com T maiúsculo)
     const novaTarefa = await Tarefa.create(req.body);
-    res.status(201).json(novaTarefa);
+    return res.status(201).json(novaTarefa);
   } catch (error) {
-    res.status(500).json({ 
+    return res.status(500).json({ 
       message: 'Erro ao criar tarefa', 
       error: error.message 
     });
