@@ -1,10 +1,11 @@
-const express = require('express');
-const router = express.Router();
-// Importação do controlador
-const tarefaController = require('../controllers/tarefaController');
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/database');
 
-// Define as rotas usando as funções exportadas no controller
-router.get('/', tarefaController.getAll);
-router.post('/', tarefaController.create);
+const Tarefa = sequelize.define('Tarefa', {
+  titulo: { type: DataTypes.STRING, allowNull: false },
+  descricao: { type: DataTypes.TEXT },
+  concluida: { type: DataTypes.BOOLEAN, defaultValue: false }
+});
 
-module.exports = router;
+// ESTA LINHA É OBRIGATÓRIA:
+module.exports = Tarefa;
