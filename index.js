@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
-// Importando as rotas da pasta api/routes
+
+// ESTA LINHA ABAIXO É A QUE ESTÁ FALTANDO NO SEU PRINT:
 const tarefaRoutes = require('./api/routes/tarefa'); 
 
 app.use(express.json());
