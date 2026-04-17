@@ -3,7 +3,7 @@ const Tarefa = require('../models/tarefa');
 exports.getAll = async (req, res) => {
   try {
     const tarefas = await Tarefa.findAll();
-    res.json(tarefas);
+    res.status(200).json(tarefas);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
