@@ -1,7 +1,12 @@
-// Procure onde está assim:
-if (tarefaRoutes) {
-    app.use('/tarefas', tarefaRoutes);
-}
+const express = require('express');
+const app = express();
 
-// E mude para ficar exatamente assim (removendo o 'if' para forçar o erro aparecer se falhar):
-app.use('/tarefas', require('./api/routes/tarefa'));
+// ESTA LINHA ABAIXO DEVE ESTAR FALTANDO OU ERRADA:
+const tarefaRoutes = require('./src/routes/tarefaRoutes'); 
+
+app.use(express.json());
+
+// Aqui é onde o erro acontece porque 'tarefaRoutes' não foi definido lá em cima
+app.use('/tarefas', tarefaRoutes); 
+
+module.exports = app;
