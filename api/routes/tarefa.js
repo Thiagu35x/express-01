@@ -1,11 +1,9 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
+const express = require('express');
+const router = express.Router();
+const tarefaController = require('../controllers/tarefaController');
 
-const Tarefa = sequelize.define('Tarefa', {
-  titulo: { type: DataTypes.STRING, allowNull: false },
-  descricao: { type: DataTypes.TEXT },
-  concluida: { type: DataTypes.BOOLEAN, defaultValue: false }
-});
+// Define as rotas (O garçom que leva o pedido)
+router.get('/', tarefaController.getAll);
+router.post('/', tarefaController.create);
 
-// Verifique se essa linha existe!
-module.exports = Tarefa;
+module.exports = router;
