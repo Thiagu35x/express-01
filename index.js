@@ -1,18 +1,21 @@
 const express = require('express');
 const sequelize = require('./config/database');
 const tarefaRoutes = require('./api/routes/tarefa');
+require('dotenv').config();
 
 const app = express();
 app.use(express.json());
 
-// Rota de Tarefas
+// Rota de teste para saber se está vivo
+app.get('/', (req, res) => res.send('API de Tarefas Online!'));
+
+// Rotas principais
 app.use('/tarefas', tarefaRoutes);
 
-// Sincronizar banco e ligar servidor
-const PORT = process.env.PORT || 3000;
-sequelize.sync().then(() => {
-    console.log('Banco de dados conectado!');
-    app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
-}).catch(err => console.error('Erro ao conectar ao banco:', err));
+// Sincronizar banco
+sequelize.sync()
+    .then(() => console.log('Banco conectado'))
+    .catch(err => console.log('Erro no banco: ' + err));
 
-module.exports = app; // Importante para a Vercel
+// ESSENCIAL PARA VERCEL: Exportar o app
+module.exports = app;
