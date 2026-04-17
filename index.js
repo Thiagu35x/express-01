@@ -1,12 +1,15 @@
 const express = require('express');
 const app = express();
 
-// Puxando o arquivo de rotas que está dentro de api/routes/
+// O caminho precisa apontar para a pasta api onde estão suas rotas
 const tarefaRoutes = require('./api/routes/tarefa'); 
 
 app.use(express.json());
 
-// Ativando as rotas de tarefas
+// Rota de teste
+app.get('/', (req, res) => res.send('Backend Online!'));
+
+// Prefixo das rotas de tarefas
 app.use('/tarefas', tarefaRoutes); 
 
 module.exports = app;
