@@ -1,15 +1,13 @@
 const express = require('express');
 const app = express();
-
-// O caminho precisa apontar para a pasta api onde estão suas rotas
+// Importando as rotas da pasta api/routes
 const tarefaRoutes = require('./api/routes/tarefa'); 
 
 app.use(express.json());
 
-// Rota de teste
-app.get('/', (req, res) => res.send('Backend Online!'));
+// Rota para testar se a Vercel está lendo o arquivo
+app.get('/', (req, res) => res.send('Servidor Online na Vercel!'));
 
-// Prefixo das rotas de tarefas
-app.use('/tarefas', tarefaRoutes); 
+app.use('/tarefas', tarefaRoutes);
 
 module.exports = app;

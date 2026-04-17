@@ -7,5 +7,5 @@ const Tarefa = sequelize.define('Tarefa', {
   concluida: { type: DataTypes.BOOLEAN, defaultValue: false }
 });
 
-// ESTA LINHA É OBRIGATÓRIA:
+// Verifique se essa linha existe!
 module.exports = Tarefa;
